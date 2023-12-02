@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, session
 import webbrowser
 import threading
 
@@ -22,3 +22,12 @@ if __name__ == '__main__':
 
     # Запуск сервера у власному потоці
     threading.Thread(target=serve, args=(app,), kwargs={'host': '0.0.0.0', 'port': 5000}).start()
+
+    # main.py
+
+from db_config import create_connection
+
+# Отримання з'єднання
+connection = create_connection()
+
+# Тут ви можете виконувати ваші операції з базою даних

@@ -1,0 +1,219 @@
+openapi: 3.0.0
+info:
+  title: Playlist Service API
+  description: API for creating and managing playlists
+  version: 1.0.0
+
+servers:
+  - url: /api
+
+paths:
+  /users:
+    get:
+      summary: Get all users
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                users:
+                  - id: 1
+                    name: John Doe
+                  - id: 2
+                    name: Jane Doe
+
+  /users/{userId}:
+    get:
+      summary: Get user by ID
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: ID of the user
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 1
+                name: John Doe
+                email: john@example.com
+
+  /playlists:
+    get:
+      summary: Get all playlists
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                playlists:
+                  - id: 1
+                    name: My Playlist
+                    type: private
+                    userId: 1
+                  - id: 2
+                    name: Public Playlist
+                    type: public
+                    userId: 2
+
+    post:
+      summary: Create a new playlist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              name: New Playlist
+              type: private
+              userId: 1
+      responses:
+        '201':
+          description: Playlist created successfully
+          content:
+            application/json:
+              example:
+                id: 3
+                name: New Playlist
+                type: private
+                userId: 1
+
+  /playlists/{playlistId}:
+    get:
+      summary: Get playlist by ID
+      parameters:
+        - in: path
+          name: playlistId
+          required: true
+          description: ID of the playlist
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 1
+                name: My Playlist
+                type: private
+                userId: 1
+
+    put:
+      summary: Update playlist by ID
+      parameters:
+        - in: path
+          name: playlistId
+          required: true
+          description: ID of the playlist
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              name: Updated Playlist
+              type: private
+              userId: 1
+      responses:
+        '200':
+          description: Playlist updated successfully
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Updated Playlist
+                type: private
+                userId: 1
+
+    delete:
+      summary: Delete playlist by ID
+      parameters:
+        - in: path
+          name: playlistId
+          required: true
+          description: ID of the playlist
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Playlist deleted successfully
+
+  /playlists/{playlistId}/tracks:
+    get:
+      summary: Get tracks of a playlist by ID
+      parameters:
+        - in: path
+          name: playlistId
+          required: true
+          description: ID of the playlist
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                tracks:
+                  - id: 1
+                    name: Song 1
+                    artist: Artist 1
+                    duration: 180
+                  - id: 2
+                    name: Song 2
+                    artist: Artist 2
+                    duration: 240
+
+    post:
+      summary: Add track to a playlist
+      parameters:
+        - in: path
+          name: playlistId
+          required: true
+          description: ID of the playlist
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              name: Song 3
+              artist: Artist 3
+              duration: 200
+      responses:
+        '201':
+          description: Track added successfully
+          content:
+            application/json:
+              example:
+                id: 3
+                name: Song 3
+                artist: Artist 3
+                duration: 200
+
+    delete:
+      summary: Remove track from a playlist
+      parameters:
+        - in: path
+          name: playlistId
+          required: true
+          description: ID of the playlist
+          schema:
+            type: integer
+        - in: query
+          name: trackId
+          required: true
+          description: ID of the track
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Track removed successfully
