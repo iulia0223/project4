@@ -16,30 +16,48 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from playlists import views
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
-# playlists/urls.py
+# playlist_service/urls.py
 from django.urls import path
-from . import views
+from .views import get_playlist, create_playlist
 
 urlpatterns = [
-    path('users/', views.get_all_users, name='get_all_users'),
-    path('users/<int:user_id>/', views.get_user_by_id, name='get_user_by_id'),
-    path('playlists/', views.get_all_playlists, name='get_all_playlists'),
-    path('playlists/<int:playlist_id>/', views.get_playlist_by_id, name='get_playlist_by_id'),
-    path('playlists/<int:playlist_id>/tracks/', views.get_tracks_of_playlist, name='get_tracks_of_playlist'),
-    # Додайте інші URL-шляхи та пов'язані функції
+    path('api/playlists/<int:playlist_id>/', get_playlist, name='get_playlist'),
+    path('api/playlists/create/', create_playlist, name='create_playlist'),
+    # Додайте інші URL-шляхи для інших функціональностей вашого проекту
 ]
 
 # playlist_service/urls.py
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
+from .views import get_playlist_track, add_track_to_playlist
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('playlists.urls')),
+    path('api/playlist-tracks/<int:playlist_id>/', get_playlist_track, name='get_playlist_track'),
+    path('api/playlist-tracks/add-track/', add_track_to_playlist, name='add_track_to_playlist'),
+    # Додайте інші URL-шляхи для інших функціональностей вашого проекту
+]
+
+
+# playlist_service/urls.py
+from django.urls import path
+from .views import get_track, create_track
+
+urlpatterns = [
+    path('api/tracks/<int:track_id>/', get_track, name='get_track'),
+    path('api/tracks/create/', create_track, name='create_track'),
+    # Додайте інші URL-шляхи для інших функціональностей вашого проекту
+]
+
+
+# playlist_service/urls.py
+from django.urls import path
+from .views import get_user, create_user
+
+urlpatterns = [
+    path('api/users/<int:user_id>/', get_user, name='get_user'),
+    path('api/users/create/', create_user, name='create_user'),
+    # Додайте інші URL-шляхи для інших функціональностей вашого проекту
 ]

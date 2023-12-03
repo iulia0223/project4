@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8no^y+2)0i=vymv==gt9a!c12(6an1@b9x8ue@2ob%s^0e73b_'
+SECRET_KEY = 'django-insecure-(j&!%-c2*ft=e7t6ct490bbygitg7&1est&qwyif3#iz=c)131'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -121,3 +121,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+INSTALLED_APPS = [
+    # ...
+    'playlist_service',
+    # ...
+]
