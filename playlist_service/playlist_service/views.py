@@ -38,3 +38,20 @@ from django.http import HttpResponse
 
 def home_view(request):
     return HttpResponse('Welcome to the homepage!')
+
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
+
+def get_playlist(request, playlist_id):
+    try:
+        # Логіка для отримання плейлисту
+        # ...
+
+        # Якщо плейлист не знайдено, повертаємо 404 (Not Found)
+        if playlist_not_found_condition:
+            return HttpResponseNotFound('Playlist not found')
+
+        # Якщо все в порядку, повертаємо успішну відповідь
+        return HttpResponse(f'Getting playlist {playlist_id}')
+    except Exception as e:
+        # Якщо виникає інша помилка, повертаємо 400 (Bad Request)
+        return HttpResponseBadRequest(f'Bad Request: {str(e)}')
